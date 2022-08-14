@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Assets/siteFavicon.png" type="image/x-icon">
+    <title>ShopElectron | Mobile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: rgb(41, 41, 58);
+        }
+        /* header div 1 */
+        
+        #containsSearchBar {
+            display: flex;
+            background-color: black;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #siteLogoImg {
+            width: 200px;
+            height: 80px;
+        }
+        
+        #searchBar {
+            height: 50px;
+            border-radius: 30px;
+            text-align: center;
+        }
+        
+        #searchBtn {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            background-color: rgb(255, 255, 0);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        #usernameProfile {
+            display: flex;
+            padding: 5px;
+            align-items: center;
+        }
+        
+        #username {
+            font-size: larger;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: white;
+            margin: 15px;
+        }
+        
+        #profile {
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            margin: 3px;
+            border-radius: 50%;
+            color: white;
+        }
+        /* header div 2 */
+        
+        #navBar {
+            display: flex;
+            background-color: rgb(33, 30, 44);
+            padding: 5px;
+            align-items: center;
+            height: 40px;
+        }
+        
+        #menuTab {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            transition: 1s ease;
+        }
+        
+        #menuIcon {
+            position: relative;
+            top: 6px;
+            cursor: pointer;
+        }
+        
+        #menuTab:hover {
+            background-color: grey;
+            border-radius: 10px;
+        }
+        
+        #homeTab,
+        #laptopsTab,
+        #customerTab {
+            border-left: 1px solid rgb(64, 65, 75);
+            border-right: 1px solid rgb(64, 65, 75);
+            padding: 0px 20px 0px 20px;
+            margin: 0px;
+            cursor: pointer;
+            color: white;
+        }
+        
+        #homeTab h5,
+        #laptopsTab h5,
+        #customerTab h6 {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        #customerTab {
+            position: relative;
+            left: 60vw;
+        }
+        /* main baackground change buttons */
+        
+        #backgroundPrev {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            top: 90px;
+            border-radius: 50%;
+            border: none;
+        }
+        
+        #backgroundNext {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            top: 90px;
+            left: 91vw;
+            border-radius: 50%;
+            border: none;
+        }
+        /* menu */
+        
+        #menuContainer {
+            display: none;
+            flex-direction: column;
+            width: 300px;
+            height: 1000vh;
+            position: absolute;
+            background-color: rgb(53, 53, 70);
+            z-index: 3;
+            overflow: hidden;
+        }
+        
+        #greeting {
+            display: flex;
+            align-items: center;
+            background-color: rgb(33, 33, 46);
+            color: white;
+            margin: 0px;
+        }
+        
+        #profileMenu {
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            margin: 10px;
+            border-radius: 50%;
+            color: white;
+        }
+        
+        #head1,
+        #head2 {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            left: 2%;
+            margin: 0px;
+            /* border-top: 1px solid black; */
+            color: wheat;
+        }
+        
+        #head1 h3,
+        #head2 h3 {
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+            padding: 10px;
+        }
+        
+        .clickables {
+            margin: 0px;
+            padding: 10px;
+            /* border-top: 1px solid black; */
+            border-bottom: 1px solid black;
+            color: rgb(255, 255, 255);
+            transition: 1s ease;
+            cursor: pointer;
+        }
+        
+        #cutMenu {
+            display: none;
+            background-color: rgba(81, 81, 85, 0.849);
+            color: white;
+            font-size: 24px;
+            border: none;
+            position: absolute;
+            top: 1.8%;
+            left: 320px;
+            transition: 0.8s ease;
+        }
+        
+        #cutMenu:hover {
+            background-color: rgb(33, 33, 46);
+        }
+        
+        .clickables:hover {
+            box-shadow: inset 0px 0px 1px 3px rgb(61, 61, 83);
+        }
+        /* main content css */
+        
+        .productContainer {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .products {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            position: relative;
+            left: 50px;
+        }
+        
+        .productImg {
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+        }
+        
+        .productLink {
+            margin: 30px;
+            text-decoration: none;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+            width: 70%;
+        }
+        
+        .card {
+            margin: 5px;
+        }
+        
+        .heading {
+            background-color: black;
+            color: white;
+            text-align: center;
+            height: 40px;
+            justify-content: center;
+        }
+        /* footer css*/
+        
+        .site-footer {
+            background-color: #000000;
+            padding: 45px 0 20px;
+            font-size: 15px;
+            line-height: 24px;
+            color: #737373;
+        }
+        
+        .site-footer hr {
+            border-top-color: #bbb;
+            opacity: 0.5
+        }
+        
+        .site-footer hr.small {
+            margin: 20px 0
+        }
+        
+        .site-footer h6 {
+            color: #fff;
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: 2px
+        }
+        
+        .site-footer a {
+            color: #737373;
+        }
+        
+        .site-footer a:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+        
+        .footer-links {
+            padding-left: 0;
+            list-style: none
+        }
+        
+        .footer-links li {
+            display: block
+        }
+        
+        .footer-links a {
+            color: #737373
+        }
+        
+        .footer-links a:active,
+        .footer-links a:focus,
+        .footer-links a:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+        
+        .footer-links.inline li {
+            display: inline-block
+        }
+        
+        .site-footer .social-icons {
+            text-align: right
+        }
+        
+        .site-footer .social-icons a {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin-left: 6px;
+            margin-right: 0;
+            border-radius: 100%;
+            background-color: #33353d
+        }
+        
+        .copyright-text {
+            margin: 0
+        }
+        
+        @media (max-width:991px) {
+            .site-footer [class^=col-] {
+                margin-bottom: 30px
+            }
+        }
+        
+        @media (max-width:767px) {
+            .site-footer {
+                padding-bottom: 0
+            }
+            .site-footer .copyright-text,
+            .site-footer .social-icons {
+                text-align: center
+            }
+        }
+        
+        .social-icons {
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none
+        }
+        
+        .social-icons li {
+            display: inline-block;
+            margin-bottom: 4px
+        }
+        
+        .social-icons li.title {
+            margin-right: 15px;
+            text-transform: uppercase;
+            color: #96a2b2;
+            font-weight: 700;
+            font-size: 13px
+        }
+        
+        .social-icons a {
+            background-color: #eceeef;
+            color: #818a91;
+            font-size: 16px;
+            display: inline-block;
+            line-height: 44px;
+            width: 44px;
+            height: 44px;
+            text-align: center;
+            margin-right: 8px;
+            border-radius: 100%;
+            -webkit-transition: all .2s linear;
+            -o-transition: all .2s linear;
+            transition: all .2s linear
+        }
+        
+        .social-icons a:active,
+        .social-icons a:focus,
+        .social-icons a:hover {
+            color: #fff;
+            background-color: #29aafe
+        }
+        
+        .social-icons.size-sm a {
+            line-height: 34px;
+            height: 34px;
+            width: 34px;
+            font-size: 14px
+        }
+        
+        .social-icons a.facebook:hover {
+            background-color: #3b5998
+        }
+        
+        .social-icons a.twitter:hover {
+            background-color: #00aced
+        }
+        
+        .social-icons a.linkedin:hover {
+            background-color: #007bb6
+        }
+        
+        .social-icons a.dribbble:hover {
+            background-color: #ea4c89
+        }
+        
+        @media (max-width:767px) {
+            .social-icons li.title {
+                display: block;
+                margin-right: 0;
+                font-weight: 600
+            }
+        }
+    </style>
+</head>
+
+<body id="body">
+    <!-- This is a menu div -->
+    <button id="cutMenu" onclick="cutMenu()">&#10006;</button>
+    <div id="menuContainer">
+        <div id="greeting">
+            <div id="profileMenu">.</div>
+            <h3 id="hello">Hello,Username</h3>
+        </div>
+        <div id="head1">
+            <h3>In this site</h3>
+            <div class="clickables" onclick="openHome()">
+                Home
+            </div>
+            <div class="clickables" onclick="openLaptops()">
+                Laptops
+            </div>
+        </div>
+        <div id="head2">
+            <h3>Support</h3>
+            <div class="clickables" onclick="errorPage()">
+                Custromer Service
+            </div>
+            <div class="clickables" onclick="errorPage()">
+                Terms of Service
+            </div>
+            <div class="clickables" onclick="errorPage()">
+                FAQs
+            </div>
+        </div>
+    </div>
+    <header>
+        <div id="containsSearchBar">
+            <div id="siteLogo" onclick="openHomeSamePage()">
+                <img src="Assets/siteLogo.png" alt="site_logo" id="siteLogoImg">
+            </div>
+            <div id="searchText">
+                <input type="text" name="searchBar" placeholder="Search" id="searchBar" list="suggestions" size="50">
+                <!-- <datalist>
+                        <option>....</option>
+                        <option>....</option>
+                    </datalist> -->
+                <button class="search" id="searchBtn">&#128269;</button>
+            </div>
+            <div id="usernameProfile">
+                <span id="username">Username</span>
+                <div id="profile">.</div>
+            </div>
+        </div>
+        <div id="navBar">
+            <div id="menuTab" onclick="openMenu()">
+                <span id="menuIcon">&#9776;</span>
+            </div>
+            <div id="homeTab" onclick="openHome()">
+                <h5>Home</h5>
+            </div>
+            <div id="laptopsTab" onclick="openLaptops()">
+                <h5>Laptops</h5>
+            </div>
+            <div id="customerTab" onclick="errorPage()">
+                <h6>Customer Services</h6>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h3 class="heading">Mobiles for You</h3>
+        <div class="productContainer">
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Tecno Spark 8C</h5>
+                    <p class="card-text">Tecno Spark 8C Turquoise Cyan (3GB+64GB) | Upto 6GB RAM |90Hz Refresh Rate |6.6" HD+ Display | 5000mAh |13MP Dual Camera| IPX2</p>
+                    <a href="https://www.amazon.in/gp/slredirect/picassoRedirect.html/ref=pa_sp_atf_aps_sr_pg1_1?ie=UTF8&adId=A01100683KHCAAMLTCJZ8&url=%2FTecno-Turquoise-Refresh-Display-Resistant%2Fdp%2FB09RZZPYR5%2Fref%3Dsr_1_1_sspa%3Fcrid%3D3952MGVKQYKWS%26keywords%3Dandroids%26qid%3D1647686524%26sprefix%3Dandroid%252Caps%252C384%26sr%3D8-1-spons%26psc%3D1&qualifier=1647686524&id=3040521702574682&widgetName=sp_atf"
+                        class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile2.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">I KALL Z4 Smartphone</h5>
+                    <p class="card-text">I KALL Z4 Smartphone (4GB, 32G) | Android 8.1 | (5.5 Inch IPS Display) (Blue)</p>
+                    <a href="https://www.amazon.in/KALL-Smartphone-Android-Display-Blue/dp/B09V342WKP/ref=sr_1_8?crid=21YC2QRPNYY3X&keywords=androids+ikall&qid=1647687065&sprefix=androids+ikall%2Caps%2C311&sr=8-8" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile4.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Samsung Galaxy M12</h5>
+                    <p class="card-text">Samsung Galaxy M12 (Blue,4GB RAM, 64GB Storage) 6000 mAh with 8nm Processor | True 48 MP Quad Camera | 90Hz Refresh Rate</p>
+                    <a href="https://www.amazon.in/Samsung-Galaxy-M12-Storage-Processor/dp/B08XGDN3TZ/ref=sr_1_4?crid=3952MGVKQYKWS&keywords=androids&qid=1647687128&sprefix=android%2Caps%2C384&sr=8-4" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile5.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Redmi Note 11</h5>
+                    <p class="card-text">Redmi Note 11 (Horizon Blue, 4GB RAM, 64GB Storage) | 90Hz FHD+ AMOLED Display | Qualcomm® Snapdragon™ 680-6nm | Alexa Built-in</p>
+                    <a href="https://www.amazon.in/Redmi-Horizon-Storage-Qualcomm%C2%AE-SnapdragonTM/dp/B09QSBXK96/ref=sr_1_5?crid=3952MGVKQYKWS&keywords=androids&qid=1647687128&sprefix=android%2Caps%2C384&sr=8-5" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="productContainer">
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile6.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Samsung Galaxy M32</h5>
+                    <p class="card-text">Samsung Galaxy M32 5G (Sky Blue, 6GB RAM, 128GB Storage)</p>
+                    <a href="https://www.amazon.in/Samsung-Galaxy-Blue-128GB-Storage/dp/B09CGJK2HG/ref=sr_1_7?crid=3952MGVKQYKWS&keywords=androids&qid=1647687128&sprefix=android%2Caps%2C384&sr=8-7" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile8.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">I KALL Z3 Smartphone</h5>
+                    <p class="card-text">I KALL Z3 Smartphone (4GB, 32GB, 4G Volte) (6 Inch IPS Display, Dual Sim) (Purple)</p>
+                    <a href="https://www.amazon.in/gp/slredirect/picassoRedirect.html/ref=pa_sp_mtf_aps_sr_pg1_1?ie=UTF8&adId=A0623165OQ2JI6EKVG12&url=%2FKALL-Smartphone-Volte-Display-Purple%2Fdp%2FB09V33CN8L%2Fref%3Dsr_1_12_sspa%3Fcrid%3D3952MGVKQYKWS%26keywords%3Dandroids%26qid%3D1647687128%26sprefix%3Dandroid%252Caps%252C384%26sr%3D8-12-spons%26psc%3D1&qualifier=1647687128&id=2418377428883953&widgetName=sp_mtf"
+                        class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile9.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Nokia C01 Plus(Renewed)</h5>
+                    <p class="card-text">(Renewed) Nokia C01 Plus 4G, Android 11 (Go Edition), 5.45” HD+ Screen, Dual SIM, 2GB RAM/16GB Storage | Grey</p>
+                    <a href="https://www.amazon.in/Renewed-Nokia-Android-Screen-Storage/dp/B09H53KK3Z/ref=sr_1_19?crid=3952MGVKQYKWS&keywords=androids&qid=1647687128&sprefix=android%2Caps%2C384&sr=8-19" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="Assets/mobile10.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Lava Agni 5G</h5>
+                    <p class="card-text">Lava Agni 5G |64 MP AI Quad Camera| (8GB RAM/128 GB ROM)| 5000 mAh Battery| Superfast 30W Fast Charging| 6.78 inch Big Screen</p>
+                    <a href="https://www.amazon.in/gp/slredirect/picassoRedirect.html/ref=pa_sp_btf_aps_sr_pg1_1?ie=UTF8&adId=A01886952NC2LWKCSJMH4&url=%2FLava-Camera-Battery-Superfast-Charging%2Fdp%2FB09JW2KPRM%2Fref%3Dsr_1_22_sspa%3Fcrid%3D3952MGVKQYKWS%26keywords%3Dandroids%26qid%3D1647687128%26sprefix%3Dandroid%252Caps%252C384%26sr%3D8-22-spons%26psc%3D1&qualifier=1647687128&id=2418377428883953&widgetName=sp_btf"
+                        class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6 style="color:rgb(243, 160, 5);">About</h6>
+                    <p class="text-justify">The founder of <i style="color:rgb(243, 160, 5)">SHOP ELECTRON</i> is Mr. Uday Tripathi . Through this site we aim to provide a clean interface to facilitate online shopping. And we aim to increase your trust and interest in online
+                        shopping.
+                    </p>
+                </div>
+                <div class="col-xs-6 col-md-2">
+                    <h6 style="color:rgb(243, 160, 5);">Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="#" id="foot">About Us</a></li>
+                        <li><a href="#" id="foot">Contact Us</a></li>
+                        <li><a href="#" id="foot">Contribute</a></li>
+                        <li><a href="#" id="foot">Privacy Policy</a></li>
+                        <li><a href="#" id="foot">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
+                        <a href="#" id="foot">Uday Tripathi</a>.
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons" style="display: inline-block">
+                        <h6 style="display:inline-block;color:rgb(243, 160, 5);margin-right: 10px;">Contact Us</h6>
+                        <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+    function errorPage() {
+        window.open("nonFunctional.html", "_self");
+    }
+    let menuFlag = 0;
+
+    function openMenu() {
+        let header = document.getElementById("header");
+        let body = document.getElementById("body");
+        let main = document.getElementById("main");
+        let menu = document.getElementById("menuContainer");
+        let cut = document.getElementById("cutMenu");
+        if (menuFlag == 0) {
+            menuFlag = 1;
+            menu.style.display = "flex";
+            cut.style.display = "inline";
+
+
+        }
+    }
+
+    function cutMenu() {
+        let body = document.getElementById("body");
+        let menu = document.getElementById("menuContainer");
+        let cut = document.getElementById("cutMenu")
+        if (menuFlag == 1) {
+            menuFlag = 0;
+            menu.style.display = "none";
+            cut.style.display = "none";
+            body.style.position = "static";
+
+        }
+    }
+
+    function openHomeSamePage() {
+        window.open("index.html", "_self");
+    }
+
+    function openHome() {
+        window.open("index.html", "_blank");
+    }
+
+    function openLaptops() {
+        window.open("laptops.html", "_blank");
+    }
+</script>
+
+</html>

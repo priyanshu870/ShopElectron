@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Assets/siteFavicon.png" type="image/x-icon">
+    <title>Login to SHOP ELECTRON</title>
+    <style>
+        body {
+            background-image: url(Assets/background_login.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        
+        .container {
+            position: absolute;
+            top: 30%;
+            left: 35%;
+            padding: 10px;
+            border: 1px solid white;
+            border-radius: 7px;
+        }
+        
+        .register {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2px;
+        }
+        
+        .createAcc {
+            border: none;
+            border-radius: 50%;
+            height: 30px;
+            width: 20px;
+            color: white;
+            transition: 2s ease;
+            background-color: rgba(46, 147, 214, 0.8);
+            color: white;
+        }
+        
+        .createAcc:hover {
+            width: 50px;
+            border-radius: 20px;
+        }
+        
+        .userLabel,
+        .passLabel {
+            background-color: rgba(216, 240, 150, 0.89);
+            padding: 3px;
+            margin: 5px;
+            text-align: center;
+            border-radius: 5px 0px 0px 5px;
+        }
+        
+        .loginBtn {
+            position: relative;
+            left: 35%;
+            top: 2px;
+            background-color: rgba(46, 147, 214, 0.8);
+            border: none;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            color: white;
+            transition: 2s ease;
+        }
+        
+        .loginBtn:hover {
+            width: 50px;
+            border-radius: 20px;
+        }
+        
+        #username,
+        #password {
+            padding: 2.8px;
+            border: none;
+            border-radius: 0px 5px 5px 0px;
+        }
+        
+        #username:focus,
+        #password:focus,
+        #username:active,
+        #password:active {
+            outline: none;
+        }
+        
+        .showPass {
+            position: relative;
+            left: -20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset class="container" name="Login">
+        <div class="login">
+            <label for="username" class="userLabel">Username : </label>
+            <input type="text" name="username" id="username" placeholder="Enter username">
+            <br><br>
+            <label for="password" class="passLabel">Password : </label>
+            <input type="password" name="password" id="password">
+            <span class="showPass" onmousedown="show(this)" onmouseup="hide(this)">
+                &#x1F441;
+            </span>
+            <br><br>
+            <button class="loginBtn" onclick="openIndex()">Login</button>
+        </div>
+        <div class="register">
+            <h5>Don't have an account yet?</h5>
+            <button class="createAcc">Create one</button>
+        </div>
+    </fieldset>
+</body>
+<script>
+    function show(currElement) {
+        let passField = currElement.previousElementSibling;
+        passField.setAttribute("type", "text");
+    }
+
+    function hide(currElement) {
+        let passField = currElement.previousElementSibling;
+        passField.setAttribute("type", "password");
+    }
+
+    function openIndex() {
+        window.open("index.html", '_blank');
+    }
+</script>
+
+</html>
